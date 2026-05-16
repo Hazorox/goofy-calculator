@@ -32,6 +32,7 @@ function App() {
     setText(text + fn);
   };
   const equals = () => {
+      new Audio("/public/equals.mp3").play()
     setText((txt) => {
       let output;
       try {
@@ -87,7 +88,7 @@ function App() {
       new Audio("/public/sus.mp3").play()
 
     }
-    else if (text=="Infinity"){
+    else if (text=="Infinity" || text == "undefined"){
             new Audio("/public/infinity.mp3").play()
 
     }
