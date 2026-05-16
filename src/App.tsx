@@ -14,7 +14,7 @@ function App() {
 
   const deleteText = () => {
     setText((txt) => txt.slice(0, -1));
-      new Audio("/public/click.mp3").play()
+      new Audio("./click.mp3").play()
 
   };
 
@@ -24,7 +24,7 @@ function App() {
     setFound((_) => {
       return { "69":false, "67": false };
     });
-      new Audio("/public/clear.mp3").play()
+      new Audio("./clear.mp3").play()
 
   };
 
@@ -32,7 +32,7 @@ function App() {
     setText(text + fn);
   };
   const equals = () => {
-      new Audio("/public/equals.mp3").play()
+      new Audio("./equals.mp3").play()
     setText((txt) => {
       let output;
       try {
@@ -79,17 +79,17 @@ function App() {
         return { ...prev, "67": true };
       });
 
-      new Audio("/public/67.mp3").play()
+      new Audio("./67.mp3").play()
     }
     else if (text.includes("69") && found["69"] == false) {
       setFound((prev) => {
         return { ...prev, "69": true };
       });
-      new Audio("/public/sus.mp3").play()
+      new Audio("./sus.mp3").play()
 
     }
     else if (text=="Infinity" || text == "undefined"){
-            new Audio("/public/infinity.mp3").play()
+            new Audio("./infinity.mp3").play()
 
     }
   }, [text, found]);
