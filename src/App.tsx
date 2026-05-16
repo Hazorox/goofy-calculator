@@ -88,7 +88,7 @@ function App() {
       new Audio("./sus.mp3").play()
 
     }
-    else if (text=="Infinity" || text == "undefined"){
+    else if (text=="Infinity" || text == "undefined" || text == "NaN"){
             new Audio("./infinity.mp3").play()
 
     }
