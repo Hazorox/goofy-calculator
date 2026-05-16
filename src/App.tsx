@@ -22,7 +22,7 @@ function App() {
     
     setText("");
     setFound((_) => {
-      return { "69":false, "67": false };
+      return {"67": false };
     });
       new Audio("./clear.mp3").play()
 
@@ -70,7 +70,7 @@ function App() {
 
     if (text == "") {
       setFound( (_) => {
-        return {"69":false, "67": false };
+        return {"67": false };
       });
     }
     if (text.includes("67") && found["67"] == false) {
@@ -81,13 +81,7 @@ function App() {
 
       new Audio("./67.mp3").play()
     }
-    else if (text.includes("69") && found["69"] == false) {
-      setFound((prev) => {
-        return { ...prev, "69": true };
-      });
-      new Audio("./sus.mp3").play()
-
-    }
+    
     else if (text=="Infinity" || text == "undefined" || text == "NaN" || text=="Failed, press CE"){
             new Audio("./infinity.mp3").play()
 
