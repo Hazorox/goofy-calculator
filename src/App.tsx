@@ -4,7 +4,7 @@ import { CgMathDivide, CgMathEqual } from "react-icons/cg";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Background from "./Background";
 function App() {
-  const [found, setFound] = useState({ "67": false, "69": false });
+  const [found, setFound] = useState({ "67": false});
   const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const fnButtons = ["+", "-", "x"];
   const [text, setText] = useState("");
@@ -69,9 +69,7 @@ function App() {
 
 
     if (text == "") {
-      setFound( (_) => {
-        return {"67": false };
-      });
+      setFound({"67":false});
     }
     if (text.includes("67") && found["67"] == false) {
       console.log("67!!!!!!!");
