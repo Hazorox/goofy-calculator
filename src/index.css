@@ -8,7 +8,7 @@
 .display {
   font-size: 48px;
 }
-button{
+button {
   border-width: 4px;
   border-color: black;
   border-radius: 8px;
@@ -18,8 +18,15 @@ button{
   align-items: center;
   justify-content: center;
 }
-.fn{
-  height:80px;
-  margin-right:18px;
-  margin-left:0;
+.fn {
+  height: 80px;
+  margin-right: 18px;
+  margin-left: 0;
+}
+@keyframes rotating{
+  from {transform: rotate(0deg);}
+  to{transform: rotate(360deg);}
+}
+.icon{
+  animation: rotating 8s linear infinite;
 }

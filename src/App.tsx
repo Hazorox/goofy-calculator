@@ -2,11 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import * as math from "mathjs";
 import { CgMathDivide, CgMathEqual } from "react-icons/cg";
 import { FaDeleteLeft } from "react-icons/fa6";
+import Background from "./Background";
 function App() {
- 
-
-  
-  
+  const [found, setFound] = useState({ "67": false, "69": false });
   const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const fnButtons = ["+", "-", "x"];
   const [text, setText] = useState("");
@@ -19,7 +17,13 @@ function App() {
   };
 
   const clear = () => {
+    
     setText("");
+    setFound((prev) => {
+      return { "69":false, "67": false };
+    });
+      new Audio("/public/clear.mp3").play()
+
   };
 
   const fnClicked = (fn: string) => {
@@ -27,19 +31,26 @@ function App() {
   };
   const equals = () => {
     setText((txt) => {
-      return String(math.evaluate(txt.replaceAll("x", "*")));
+      let output;
+      try {
+        output = String(math.evaluate(txt.replaceAll("x", "*")));
+      } catch {
+        output = "Failed, press CE";
+      }
+      return output;
     });
   };
 
- // If backspace is pressed del is pressed
+  // If backspace is pressed del is pressed
   const escFunction = useCallback((event) => {
     if (event.key === "Backspace") {
-      deleteText()
-    }else if(event.key=="Enter"){
-      equals()
-    }
-    else if(event.location == 3){
-      setText(txt=>{return txt+event.key})
+      deleteText();
+    } else if (event.key == "Enter") {
+      equals();
+    } else if (event.location == 3) {
+      setText((txt) => {
+        return txt + event.key;
+      });
     }
   }, []);
 
@@ -51,50 +62,100 @@ function App() {
     };
   }, [escFunction]);
 
+  useEffect(() => {
+
+
+    if (text == "") {
+      setFound( _ => {
+        return {"69":false, "67": false };
+      });
+    }
+    if (text.includes("67") && found["67"] == false) {
+      console.log("67!!!!!!!");
+      setFound((prev) => {
+        return { ...prev, "67": true };
+      });
+
+      new Audio("/public/67.mp3").play()
+    }
+    else if (text.includes("69") && found["69"] == false) {
+      setFound((prev) => {
+        return { ...prev, "69": true };
+      });
+      new Audio("/public/sus.mp3").play()
+
+    }
+    else if (text=="Infinity"){
+            new Audio("/public/infinity.mp3").play()
+
+    }
+  }, [text, found]);
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <h1 className="text-7xl my-8">
-        Cursed Calculator!
-      </h1>
-      <div className="w-xl h-144 border-2 border-gray-700 rounded-2xl ">
-        {/* Display */}
-        <div className="min-h-20 display bg-gray-400 rounded-t-xl mb-3 overflow-x-scroll">{text}</div>
-        {/* Buttons */}
-        <div className="buttons flex min-h-124">
-          {/* Numpad */}
-          <div className="numpad flex-3/4 grid grid-cols-3 ml-3 mb-1">
-            {buttons.map((val) => {
-              return (
-                <button key={val} onClick={() => clicked(val)}>
-                  {val}
-                </button>
-              );
-            })}
-            
-            <button className="clear" onClick={() => clear()}>
-              CE
-            </button>
-            <button className="0" onClick={() => clicked(0)}>
-              0
-            </button>
-          <button><FaDeleteLeft className="delete inline" onClick={() => deleteText()} /></button>
+    <>
+      <Background />
+      <div className="flex justify-center items-center min-h-screen flex-col">
+        <h1 className="text-7xl mb-20">Cursed Calculator!</h1>
+        <div className="w-xl h-144 border-4 border-gray-700 bg-gray-50  rounded-2xl calc">
+          {/* Display */}
+          <div className="h-22 pl-2 display bg-gray-400 rounded-t-xl mb-3 overflow-x-scroll overflow-y-hidden">
+            {text}
           </div>
-          {/* Modifiers  */}
-          <div className="grid">
-            {fnButtons.map((val) => {
-              return (
-                <button className="fn" key={val} onClick={() => fnClicked(val)}>
-                  {val}
-                </button>
-              );
-            })}
-            <button className="fn"><CgMathDivide className="divide inline" onClick={() => fnClicked("/")} /></button>
-            <button className="fn mb-2"><CgMathEqual className="equal inline" onClick={() => equals()} /></button>
+          {/* Buttons */}
+          <div className="buttons flex min-h-124">
+            {/* Numpad */}
+            <div className="numpad flex-3/4 grid grid-cols-3 ml-3 mb-3">
+              {buttons.map((val) => {
+                return (
+                  <button key={val} onClick={() => clicked(val)}>
+                    {val}
+                  </button>
+                );
+              })}
+
+              <button className="clear" onClick={() => clear()}>
+                CE
+              </button>
+              <button className="0" onClick={() => clicked(0)}>
+                0
+              </button>
+              <button>
+                <FaDeleteLeft
+                  className="delete inline"
+                  onClick={() => deleteText()}
+                />
+              </button>
+            </div>
+            {/* Modifiers  */}
+            <div className="grid mb-3">
+              {fnButtons.map((val) => {
+                return (
+                  <button
+                    className="fn"
+                    key={val}
+                    onClick={() => fnClicked(val)}
+                  >
+                    {val}
+                  </button>
+                );
+              })}
+              <button className="fn">
+                <CgMathDivide
+                  className="divide inline"
+                  onClick={() => fnClicked("/")}
+                />
+              </button>
+              <button className="fn mb-2">
+                <CgMathEqual
+                  className="equal inline"
+                  onClick={() => equals()}
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
