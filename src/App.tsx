@@ -69,7 +69,7 @@ function App() {
 
 
     if (text == "") {
-      setFound( _ => {
+      setFound( (_) => {
         return {"69":false, "67": false };
       });
     }
@@ -88,7 +88,7 @@ function App() {
       new Audio("./sus.mp3").play()
 
     }
-    else if (text=="Infinity" || text == "undefined" || text == "NaN"){
+    else if (text=="Infinity" || text == "undefined" || text == "NaN" || text=="Failed, press CE"){
             new Audio("./infinity.mp3").play()
 
     }
@@ -98,14 +98,14 @@ function App() {
     <>
       <Background />
       <div className="flex justify-center items-center min-h-screen flex-col">
-        <h1 className="text-7xl mb-20">Cursed Calculator!</h1>
-        <div className="w-xl h-144 border-4 border-gray-700 bg-gray-50  rounded-2xl calc">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl mb-20 text-center">Cursed Calculator!</h1>
+        <div className="w-[330px] md:w-xl h-144 border-4 border-gray-700 bg-gray-50  rounded-2xl calc">
           {/* Display */}
           <div className="h-22 pl-2 display bg-gray-400 rounded-t-xl mb-3 overflow-x-scroll overflow-y-hidden">
             {text}
           </div>
           {/* Buttons */}
-          <div className="buttons flex min-h-124">
+          <div className="buttons flex min-h-124 md:min-h-124">
             {/* Numpad */}
             <div className="numpad flex-3/4 grid grid-cols-3 ml-3 mb-3">
               {buttons.map((val) => {
