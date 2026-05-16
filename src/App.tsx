@@ -14,6 +14,8 @@ function App() {
 
   const deleteText = () => {
     setText((txt) => txt.slice(0, -1));
+      new Audio("/public/click.mp3").play()
+
   };
 
   const clear = () => {
