@@ -21,7 +21,7 @@ function App() {
   const clear = () => {
     
     setText("");
-    setFound((prev) => {
+    setFound((_) => {
       return { "69":false, "67": false };
     });
       new Audio("/public/clear.mp3").play()
@@ -45,7 +45,7 @@ function App() {
   };
 
   // If backspace is pressed del is pressed
-  const escFunction = useCallback((event) => {
+  const escFunction = useCallback((event:KeyboardEvent) => {
     if (event.key === "Backspace") {
       deleteText();
     } else if (event.key == "Enter") {
