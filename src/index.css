@@ -1,12 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap");
 @import "tailwindcss";
-*{
-  font-family:"Comfortaa";
-  font-weight:700;
+* {
+  font-family: "Comfortaa";
+  font-weight: 700;
+}
+.buttons,
+.display {
+  font-size: 48px;
 }
 button{
   border-width: 4px;
   border-color: black;
   border-radius: 8px;
-  width:100px;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fn{
+  height:80px;
+  margin-right:18px;
+  margin-left:0;
 }

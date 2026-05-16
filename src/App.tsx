@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import * as math from "mathjs";
 import { CgMathDivide, CgMathEqual } from "react-icons/cg";
 import { FaDeleteLeft } from "react-icons/fa6";
 function App() {
+ 
+
+  
+  
   const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const fnButtons = ["+", "-", "x"];
   const [text, setText] = useState("");
@@ -26,18 +30,40 @@ function App() {
       return String(math.evaluate(txt.replaceAll("x", "*")));
     });
   };
+
+ // If backspace is pressed del is pressed
+  const escFunction = useCallback((event) => {
+    if (event.key === "Backspace") {
+      deleteText()
+    }else if(event.key=="Enter"){
+      equals()
+    }
+    else if(event.location == 3){
+      setText(txt=>{return txt+event.key})
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
+
+
   return (
-    <div className="grid justify-center align-middle items-center justify-items-center">
-      <h1 className="text-7xl align-middle text-center m-8 mb-48">
+    <div className="flex justify-center items-center flex-col">
+      <h1 className="text-7xl my-8">
         Cursed Calculator!
       </h1>
-      <div className="grid grid-rows-2 border-2 border-gray-700 rounded-2xl h-[600px] w-[600px] ">
+      <div className="w-xl h-144 border-2 border-gray-700 rounded-2xl ">
         {/* Display */}
-        <div className="display">{text}</div>
+        <div className="min-h-20 display bg-gray-400 rounded-t-xl mb-3 overflow-x-scroll">{text}</div>
         {/* Buttons */}
-        <div className="buttons w-full grid grid-rows-1 grid-cols-2 ">
+        <div className="buttons flex min-h-124">
           {/* Numpad */}
-          <div className="numpad w-[400px] grid grid-rows-4 grid-cols-3">
+          <div className="numpad flex-3/4 grid grid-cols-3 ml-3 mb-1">
             {buttons.map((val) => {
               return (
                 <button key={val} onClick={() => clicked(val)}>
@@ -55,16 +81,16 @@ function App() {
           <button><FaDeleteLeft className="delete inline" onClick={() => deleteText()} /></button>
           </div>
           {/* Modifiers  */}
-          <div className="fn w-[150px] fixed left-0  grid grid-rows-4 grid-cols-1">
+          <div className="grid">
             {fnButtons.map((val) => {
               return (
-                <button key={val} onClick={() => fnClicked(val)}>
+                <button className="fn" key={val} onClick={() => fnClicked(val)}>
                   {val}
                 </button>
               );
             })}
-            <button><CgMathDivide className="divide inline" onClick={() => fnClicked("/")} /></button>
-            <button><CgMathEqual className="equal inline" onClick={() => equals()} /></button>
+            <button className="fn"><CgMathDivide className="divide inline" onClick={() => fnClicked("/")} /></button>
+            <button className="fn mb-2"><CgMathEqual className="equal inline" onClick={() => equals()} /></button>
           </div>
         </div>
       </div>
